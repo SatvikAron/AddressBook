@@ -13,7 +13,8 @@ namespace AddressBook.Models
         public string LasttName { get; set; }
 
         public String Email { get; set; }
-        public int AdressId { get; set; }
-        public virtual Address Address { get; set; }
-    }
+     
+      
+        public  List<Address> Addresses { get; set; }
+}
 }

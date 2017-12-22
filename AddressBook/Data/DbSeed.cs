@@ -14,8 +14,16 @@ namespace AddressBook.Data
             var bdress = new Address() { Description = "He lives in Stockholm", Addresstype = "Vila" };
 
 
-            var aperson = new Person() { FirstName = "Aron", LasttName = "Satvik", Email = "aron@gmail.com", Address = adress };
-            var bperson = new Person() { FirstName = "Jahurul", LasttName = "Sojib", Email = "jahurul@gmail.com", Address = bdress };
+            var aperson = new Person() { FirstName = "Aron", LasttName = "Satvik", Email = "aron@gmail.com" };
+            var bperson = new Person() { FirstName = "Jahurul", LasttName = "Sojib", Email = "jahurul@gmail.com" };
+
+            context.Add(adress);
+            context.Add(bdress);
+            context.Add(aperson);
+            context.Add(bperson);
+            context.SaveChanges();
+
+
 
         }
     }
