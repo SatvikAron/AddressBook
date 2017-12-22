@@ -22,7 +22,14 @@ namespace AddressBook.Controllers
         // GET: Addresses
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Addresses.ToListAsync());
+            var applicationDbContext = _context.Addresses.Include(a => a.Person);
+            return View(await applicationDbContext.ToListAsync());
+        }
+        // GET: Addresses
+        public async Task<IActionResult> ByPerson(int id)
+        {
+            var applicationDbContext = _context.Addresses.Where(address => address.PersonID==id);
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Addresses/Details/5
@@ -34,6 +41,7 @@ namespace AddressBook.Controllers
             }
 
             var address = await _context.Addresses
+                .Include(a => a.Person)
                 .SingleOrDefaultAsync(m => m.AddressId == id);
             if (address == null)
             {
@@ -46,6 +54,7 @@ namespace AddressBook.Controllers
         // GET: Addresses/Create
         public IActionResult Create()
         {
+            ViewData["PersonID"] = new SelectList(_context.Persons, "PersonId", "PersonId");
             return View();
         }
 
@@ -54,7 +63,7 @@ namespace AddressBook.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AddressId,Description,Addresstype")] Address address)
+        public async Task<IActionResult> Create([Bind("AddressId,Description,Addresstype,PersonID")] Address address)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +71,7 @@ namespace AddressBook.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["PersonID"] = new SelectList(_context.Persons, "PersonId", "PersonId", address.PersonID);
             return View(address);
         }
 
@@ -78,6 +88,7 @@ namespace AddressBook.Controllers
             {
                 return NotFound();
             }
+            ViewData["PersonID"] = new SelectList(_context.Persons, "PersonId", "PersonId", address.PersonID);
             return View(address);
         }
 
@@ -86,7 +97,7 @@ namespace AddressBook.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("AddressId,Description,Addresstype")] Address address)
+        public async Task<IActionResult> Edit(int id, [Bind("AddressId,Description,Addresstype,PersonID")] Address address)
         {
             if (id != address.AddressId)
             {
@@ -113,6 +124,7 @@ namespace AddressBook.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["PersonID"] = new SelectList(_context.Persons, "PersonId", "PersonId", address.PersonID);
             return View(address);
         }
 
@@ -125,6 +137,7 @@ namespace AddressBook.Controllers
             }
 
             var address = await _context.Addresses
+                .Include(a => a.Person)
                 .SingleOrDefaultAsync(m => m.AddressId == id);
             if (address == null)
             {

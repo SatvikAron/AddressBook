@@ -10,7 +10,8 @@ namespace AddressBook.Models
         public int AddressId { get; set; }
         public string Description { get; set; }
         public string Addresstype { get; set; }
-        
+        public int PersonID { get; set; }
+        public Person Person { get; set; }
     }
 
 }
