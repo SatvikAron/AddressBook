@@ -10,7 +10,7 @@ namespace AddressBook.Models
         public int AddressId { get; set; }
         public string Description { get; set; }
         public string Addresstype { get; set; }
-        public virtual List<Person> Persons { get; set; } = new List<Person>();
+        
     }
 
 }
