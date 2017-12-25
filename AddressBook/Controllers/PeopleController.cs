@@ -22,9 +22,23 @@ namespace AddressBook.Controllers
         // GET: People
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Persons.ToListAsync());
+            return View(await _context.Persons.OrderBy(p=>p.LasttName).ToListAsync());
         }
 
+        ////// SearCh
+
+        ////public async Task<IActionResult> Index(string searchString)
+        //{
+        //    var people = from m in _context.Persons
+        //                 select m;
+
+        //    if (!String.IsNullOrEmpty(searchString))
+        //    {
+        //        people = people.Where(s => s.LasttName.Contains(searchString));
+        //    }
+
+        //    return View(await people.ToListAsync());
+        //}
         // GET: People/Details/5
         public async Task<IActionResult> Details(int? id)
         {
