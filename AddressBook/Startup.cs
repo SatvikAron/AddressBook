@@ -31,7 +31,7 @@ namespace AddressBook
 
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseInMemoryDatabase("DefaultConnection"));
+                options.UseInMemoryDatabase("Test"));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
