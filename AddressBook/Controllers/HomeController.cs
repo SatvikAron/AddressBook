@@ -5,13 +5,20 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AddressBook.Models;
+using AddressBook.Interfaces;
 
 namespace AddressBook.Controllers
 {
     public class HomeController : Controller
     {
+        private ITimeProvider timeProvider;
+        public HomeController(ITimeProvider _timeProvider)
+        {
+            timeProvider = _timeProvider;
+        }
         public IActionResult Index()
         {
+            ViewBag.Time = timeProvider.Now.ToString();
             return View();
         }
 
