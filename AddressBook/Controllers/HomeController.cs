@@ -35,6 +35,17 @@ namespace AddressBook.Controllers
 
             return View();
         }
+        public IActionResult IncreaseMonth()
+        {
+           timeProvider.Now= timeProvider.Now.AddMonths(1);
+            return View("Index");
+        }
+
+        public IActionResult DecreaseMonth()
+        {
+            timeProvider.Now = timeProvider.Now.AddMonths(-1);
+            return View("Index");
+        }
 
         public IActionResult Error()
         {
